@@ -1,7 +1,7 @@
-# fedora-live-cinnamon.ks
+# fedora-live-buster.ks
 #
 # Description:
-# - Fedora Live Spin with the Cinnamon Desktop Environment
+# - Buster
 #
 # Maintainer(s):
 # - Abel Jimenez
@@ -9,7 +9,7 @@
 %include fedora-live-base.ks
 %include fedora-buster-common.ks
 
-part / --size=6144
+part / --size=12288
 
 %post
 # buster configuration

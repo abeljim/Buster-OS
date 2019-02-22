@@ -9,7 +9,7 @@
 
 lang en_US.UTF-8
 keyboard us
-timezone US/Eastern
+timezone US/Pacfic
 auth --useshadow --passalgo=sha512
 selinux --enforcing
 firewall --enabled --service=mdns
