@@ -38,11 +38,13 @@ slick-greeter
 
 # Software 
 code 
+gimp
+deluge 
+kdenlive
 
 # Browser 
 chromium
 chromium-libs-media-freeworld
-deluge 
 
 # cli
 vim
@@ -59,7 +61,6 @@ if [ ! -f ~/first_login_setup_done ]; then
     cd /usr/share/user_file/
     
     bash theme/theme_setup.sh
-    bash misc/misc_setup.sh
     
     touch ~/first_login_setup_done
 fi
@@ -67,7 +68,23 @@ EOF
 chmod a+x /etc/profile.d/first_login_setup.sh
 
 # add vs code to nautlius 
-wget https://gist.githubusercontent.com/cra0zy/f8ec780e16201f81ccd5234856546414/raw/6e53c15ea4b18de077587e781dc95dc7f0582cc3/VSCodeExtension.py && mkdir -p ~/.local/share/nautilus-python/extensions && cp -f VSCodeExtension.py ~/.local/share/nautilus-python/extensions/VSCodeExtension.py && rm VSCodeExtension.py && nautilus -q
+# wget https://gist.githubusercontent.com/cra0zy/f8ec780e16201f81ccd5234856546414/raw/6e53c15ea4b18de077587e781dc95dc7f0582cc3/VSCodeExtension.py && mkdir -p ~/.local/share/nautilus-python/extensions && cp -f VSCodeExtension.py ~/.local/share/nautilus-python/extensions/VSCodeExtension.py && rm VSCodeExtension.py && nautilus -q
+
+# add theme for plymouth
+# mkdir -p /usr/share/plymouth/themes/buster
+cd /builddir 
+ls
+# cp -R /mnt/home/abelj1/Projects/buster_plymouth /usr/share/plymouth/themes/buster
+# cd /usr/share/plymouth/themes/buster
+# git clone https://github.com/abeljim/buster_plymouth.git .
+# cat >> /etc/plymouth/plymouthd.conf << 'EOF'
+# ShowDelay=0
+# EOF 
+# plymouth-set-default-theme buster -R
+
+# remove extra desktop enviroment
+rm -rf /usr/bin/openbox-session
+rm -rf /usr/bin/cinnamon*
 
 # theming for gnome based stuff
 cat >> /usr/share/glib-2.0/schemas/99_my_custom_settings.gschema.override << FOE
@@ -104,7 +121,7 @@ items-alignment='center'
 theme='Matte'
 hide-mode='intelligent'
 pinned-only=false
-auto-pinning=true
+auto-pinning=false 
 alignment='center'
 hide-delay=0
 monitor=''
