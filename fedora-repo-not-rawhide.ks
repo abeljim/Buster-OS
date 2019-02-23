@@ -4,7 +4,6 @@ repo --name=updates --mirrorlist=https://mirrors.fedoraproject.org/mirrorlist?re
 url --mirrorlist=https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-$releasever&arch=$basearch
 
 repo --install --name=alunux-budgie-git --baseurl=https://copr-be.cloud.fedoraproject.org/results/alunux/budgie-desktop-git/fedora-$releasever-$basearch/
-repo --install --name=antergos-lightdm-webkit2-greeter --baseurl=https://copr-be.cloud.fedoraproject.org/results/antergos/lightdm-webkit2-greeter/fedora-$releasever-$basearch/
 
 repo --name=code --baseurl=https://packages.microsoft.com/yumrepos/vscode --install
 

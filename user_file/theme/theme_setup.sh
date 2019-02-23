@@ -1,7 +1,7 @@
 #!/bin/bash
 # scripts written for setting up a fresh RPM based system
 
-gsettings set org.gnome.desktop.background picture-uri file:///usr/share/user_file/theme/rikka.png
+gsettings set org.gnome.desktop.background picture-uri file:///usr/share/user_file/theme/buster_girl.png
 
 mkdir -p $HOME/.config/autostart 
 cat >> $HOME/.config/autostart/plank.desktop << EOF
