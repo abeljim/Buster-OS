@@ -4,6 +4,7 @@ repo --name=updates --mirrorlist=https://mirrors.fedoraproject.org/mirrorlist?re
 url --mirrorlist=https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-$releasever&arch=$basearch
 
 repo --install --name=alunux-budgie-git --baseurl=https://copr-be.cloud.fedoraproject.org/results/alunux/budgie-desktop-git/fedora-$releasever-$basearch/
+repo --install --name=abeljim-web-greeter --baseurl=https://copr-be.cloud.fedoraproject.org/results/abeljim/web-greeter/fedora-$releasever-$basearch/
 
 repo --name=code --baseurl=https://packages.microsoft.com/yumrepos/vscode --install
 
@@ -12,3 +13,5 @@ repo --name=rpmfusion-free-updates --install --metalink=https://mirrors.rpmfusio
 repo --name=rpmfusion-free --install --metalink=https://mirrors.rpmfusion.org/metalink?repo=free-fedora-$releasever&arch=$basearch
 repo --name=rpmfusion-nonfree-updates --install --metalink=https://mirrors.rpmfusion.org/metalink?repo=nonfree-fedora-updates-released-$releasever&arch=$basearch
 repo --name=rpmfusion-nonfree --install --metalink=https://mirrors.rpmfusion.org/metalink?repo=nonfree-fedora-$releasever&arch=$basearch
+
+repo --install --name=abeljim-Buster_OS --baseurl=https://copr-be.cloud.fedoraproject.org/results/abeljim/Buster_OS/fedora-$releasever-$basearch/

@@ -74,4 +74,4 @@ NotShowIn=Pantheon;
 EOF
 
 
-print_message "Theme installation setup done\n"
+chsh -s $(which zsh)

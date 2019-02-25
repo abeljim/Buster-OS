@@ -27,6 +27,7 @@ plank
 
 # lightdm greeter 
 slick-greeter
+#lightdm-webkit2-greeter
 
 
 #  Basic Utilties
@@ -42,12 +43,21 @@ gimp
 deluge 
 kdenlive
 
+# Machine learning 
+conda 
+
 # Browser 
 chromium
 chromium-libs-media-freeworld
 
 # cli
 vim
+zsh 
+zsh-syntax-highlighting
+
+# plymouth
+plymouth-plugin-script
+buster_plymouth
 
 %end
 
@@ -66,21 +76,6 @@ if [ ! -f ~/first_login_setup_done ]; then
 fi
 EOF
 chmod a+x /etc/profile.d/first_login_setup.sh
-
-# add vs code to nautlius 
-# wget https://gist.githubusercontent.com/cra0zy/f8ec780e16201f81ccd5234856546414/raw/6e53c15ea4b18de077587e781dc95dc7f0582cc3/VSCodeExtension.py && mkdir -p ~/.local/share/nautilus-python/extensions && cp -f VSCodeExtension.py ~/.local/share/nautilus-python/extensions/VSCodeExtension.py && rm VSCodeExtension.py && nautilus -q
-
-# add theme for plymouth
-# mkdir -p /usr/share/plymouth/themes/buster
-cd /builddir 
-ls
-# cp -R /mnt/home/abelj1/Projects/buster_plymouth /usr/share/plymouth/themes/buster
-# cd /usr/share/plymouth/themes/buster
-# git clone https://github.com/abeljim/buster_plymouth.git .
-# cat >> /etc/plymouth/plymouthd.conf << 'EOF'
-# ShowDelay=0
-# EOF 
-# plymouth-set-default-theme buster -R
 
 # remove extra desktop enviroment
 rm -rf /usr/bin/openbox-session
@@ -111,42 +106,41 @@ foreground-color='rgb(131,148,150)'
 scrollback-unlimited=true
 scrollbar-policy='never'
 
-[net.launchpad.plank.docks.dock1]
-icon-size=48
-show-dock-item=false
-position='bottom'
-dock-items=['chromium-browser.dockitem']
-unhide-delay=0
-items-alignment='center'
-theme='Matte'
-hide-mode='intelligent'
-pinned-only=false
-auto-pinning=false 
-alignment='center'
-hide-delay=0
-monitor=''
-lock-items=false
-tooltips-enabled=true
-pressure-reveal=false
-offset=0
-current-workspace-only=false
-
-
 FOE
 
 glib-compile-schemas /usr/share/glib-2.0/schemas
 
+# add theme for plymouth
+cat >> /etc/plymouth/plymouthd.conf << FOE
+ShowDelay=0
+FOE
+plymouth-set-default-theme buster -R
+
+# setup lightdm webkit
+sed -i -e 's/#user-session=default/user-session=budgie-desktop/' /etc/lightdm/lightdm.conf
+# sed -i -e 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-webkit2-greeter/' /etc/lightdm/lightdm.conf
+# sed -i -e 's/#logind-check-graphical=false/logind-check-graphical=true/' /etc/lightdm/lightdm.conf
+# sed -i -e 's/debug_mode          = false/debug_mode          = true' /etc/lightdm/lightdm-webkit2-greeter.conf
+
+
 cat >> /etc/rc.d/init.d/livesys << EOF
-# set up lightdm autologin
-sed -i 's/^#autologin-user=.*/autologin-user=liveuser/' /etc/lightdm/lightdm.conf
-sed -i 's/^#autologin-user-timeout=.*/autologin-user-timeout=0/' /etc/lightdm/lightdm.conf
-sed -i 's/^#user-session=.*/user-session=budgie-desktop/' /etc/lightdm/lightdm.conf
-
-# make the installer show up
+# Show harddisk install on the desktop
 sed -i -e 's/NoDisplay=true/NoDisplay=false/' /usr/share/applications/liveinst.desktop
+# mkdir -p /home/liveuser/Desktop
+# cp /usr/share/applications/liveinst.desktop /home/liveuser/Desktop
 
+# and mark it as executable
+chmod +x /home/liveuser/Desktop/liveinst.desktop
+
+# this goes at the end after all other changes. 
 chown -R liveuser:liveuser /home/liveuser
+restorecon -R /home/liveuser
 
 EOF
 
+%end
+
+%post --nochroot --log=/mnt/sysimage/root/ks-post-no-root.log
+cp -vr /builddir/fedora-kickstarts/user_file /mnt/sysimage/usr/share/
+chmod -R a+r+x /mnt/sysimage/usr/share/user_file
 %end
